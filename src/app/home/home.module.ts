@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component'
 import { StockInputComponent } from './components/stock-input/stock-input.component'
 import { StockItemComponent } from './components/stock-item/stock-item.component'
 import { HomeRoutingModule } from './home-routing.module'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -13,6 +14,6 @@ import { HomeRoutingModule } from './home-routing.module'
     StockItemComponent,
     HomeComponent,
   ],
-  imports: [CommonModule, HomeRoutingModule],
+  imports: [CommonModule, HomeRoutingModule, FormsModule],
 })
 export class HomeModule {}
