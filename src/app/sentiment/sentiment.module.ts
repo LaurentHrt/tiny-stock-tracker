@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { SentimentRoutingModule } from './sentiment-routing.module'
+import { SentimentComponent } from './sentiment.component'
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [SentimentComponent],
+  imports: [CommonModule, SentimentRoutingModule],
 })
-export class SentimentModule { }
+export class SentimentModule {}
