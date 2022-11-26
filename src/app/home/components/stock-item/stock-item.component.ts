@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
+import { FinnhubService } from '../../../services/finnhub.service'
+import { QuoteDto, SymbolDto } from '../../../dto/Finnhub.dto'
 
 @Component({
   selector: 'app-stock-item',
@@ -7,8 +10,13 @@ import { Component, Input, OnInit } from '@angular/core'
 })
 export class StockItemComponent implements OnInit {
   @Input() symbol!: string
+  symbolData$!: Observable<SymbolDto>
+  symbolQuote$!: Observable<QuoteDto>
 
-  constructor() {}
+  constructor(private finnhubService: FinnhubService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.symbolData$ = this.finnhubService.getSymbol(this.symbol)
+    this.symbolQuote$ = this.finnhubService.getQuote(this.symbol)
+  }
 }

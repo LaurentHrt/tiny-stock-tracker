@@ -1,3 +1,13 @@
-<div>
-  <p>{{symbol}}</p>
+<div class="stock-card">
+
+<ng-container *ngIf="symbolData$ | async as symbolData">
+  <p>{{symbolData.description}} ({{symbolData.symbol}})</p>
+</ng-container>
+<ng-container *ngIf="symbolQuote$ | async as symbolQuote">
+  <p>Current price: {{symbolQuote.c | currency : 'USD'}}</p>
+  <p>Oppenning price: {{symbolQuote.o | currency : 'USD'}}</p>
+  <p>High price: {{symbolQuote.h | currency : 'USD'}}</p>
+  <p>Change today: {{symbolQuote.dp / 100 | percent : '1.2-2' }}</p>
+</ng-container>
+
 </div>

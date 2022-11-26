@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { SymbolService } from '../../../services/symbol.service'
-import { StockService } from '../../../services/stock.service'
 
 @Component({
   selector: 'app-stock-list',
