@@ -8,7 +8,7 @@ export class SymbolService {
 
   constructor() {}
 
-  getAllSymbols(): string[] {
+  getSavedSymbols(): string[] {
     console.log('Getting all symbol', this.symbolList)
     return this.symbolList
   }

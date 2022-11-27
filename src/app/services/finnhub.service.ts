@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { map, Observable } from 'rxjs'
-import { QuoteDto, SearchSymbolDto, SymbolDto } from '../dto/Finnhub.dto'
+import {
+  InsiderSentimentDto,
+  QuoteDto,
+  SearchSymbolDto,
+  SymbolDto,
+} from '../dto/Finnhub.dto'
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +28,24 @@ export class FinnhubService {
     console.log('getting quotes for', symbol)
     return this.http.get<QuoteDto>(
       this.configUrl + 'quote?symbol=' + symbol + this.token
+    )
+  }
+
+  getSentiment(
+    symbol: string,
+    from: Date,
+    to: Date
+  ): Observable<InsiderSentimentDto> {
+    console.log('Getting sentiment for', symbol)
+    return this.http.get<InsiderSentimentDto>(
+      this.configUrl +
+        'stock/insider-sentiment?symbol=' +
+        symbol +
+        '&from=' +
+        from.toISOString().slice(0, 10).replace(/-/g, '-') +
+        '&to=' +
+        to.toISOString().slice(0, 10).replace(/-/g, '-') +
+        this.token
     )
   }
 }

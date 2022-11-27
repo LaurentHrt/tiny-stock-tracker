@@ -20,3 +20,16 @@ export interface QuoteDto {
   pc: number // Previous close price
   t: number // ?
 }
+
+export interface InsiderSentimentDto {
+  data: SentimentDataDto[]
+  symbol: string
+}
+
+export interface SentimentDataDto {
+  symbol: string
+  year: number
+  month: number
+  change: number
+  mspr: number
+}

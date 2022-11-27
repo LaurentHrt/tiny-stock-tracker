@@ -1,5 +1,32 @@
+h2 {
+  margin: 0;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
 .stock-card {
   border: black solid 1px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 10px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.values-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+}
+
+.grid-values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: center;
 }

@@ -1,13 +1,25 @@
 <div class="stock-card">
-
-<ng-container *ngIf="symbolData$ | async as symbolData">
-  <p>{{symbolData.description}} ({{symbolData.symbol}})</p>
-</ng-container>
-<ng-container *ngIf="symbolQuote$ | async as symbolQuote">
-  <p>Current price: {{symbolQuote.c | currency : 'USD'}}</p>
-  <p>Oppenning price: {{symbolQuote.o | currency : 'USD'}}</p>
-  <p>High price: {{symbolQuote.h | currency : 'USD'}}</p>
-  <p>Change today: {{symbolQuote.dp / 100 | percent : '1.2-2' }}</p>
-</ng-container>
-
+  <ng-container *ngIf="symbolData$ | async as symbolData; else loading">
+    <ng-container *ngIf="symbolQuote$ | async as symbolQuote; else loading">
+      <div class="title-container">
+        <h2>{{ symbolData.description }} ({{ symbolData.symbol }})</h2>
+        <button (click)="deleteSymbol()">╳</button>
+      </div>
+      <div class="values-container">
+        <div class="grid-values">
+          <p>Change today: {{ symbolQuote.dp / 100 | percent : '1.2-2' }}</p>
+          <p>Openning price: {{ symbolQuote.o | currency : 'USD' }}</p>
+          <p>Current price: {{ symbolQuote.c | currency : 'USD' }}</p>
+          <p>High price: {{ symbolQuote.h | currency : 'USD' }}</p>
+        </div>
+        <app-variation-arrow [value]="symbolQuote.dp"></app-variation-arrow>
+      </div>
+      <button (click)="naviguateToSentiment()">
+        Go to social sentiment details
+      </button>
+    </ng-container>
+  </ng-container>
+  <ng-template #loading>
+    <app-loading-image></app-loading-image>
+  </ng-template>
 </div>

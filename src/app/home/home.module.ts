@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms'
 import { SymbolService } from '../services/symbol.service'
 import { HttpClientModule } from '@angular/common/http'
 import { FinnhubService } from '../services/finnhub.service'
+import { SharedModule } from '../shared/shared.module'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,12 @@ import { FinnhubService } from '../services/finnhub.service'
     StockItemComponent,
     HomeComponent,
   ],
-  imports: [CommonModule, HomeRoutingModule, FormsModule, HttpClientModule],
-  providers: [SymbolService, FinnhubService],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    SharedModule,
+  ],
 })
 export class HomeModule {}

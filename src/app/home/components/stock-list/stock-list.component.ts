@@ -12,6 +12,10 @@ export class StockListComponent implements OnInit {
   constructor(private symbolService: SymbolService) {}
 
   ngOnInit(): void {
-    this.symbolList = this.symbolService.getAllSymbols()
+    this.symbolList = this.symbolService.getSavedSymbols()
+  }
+
+  onSymbolDelete(symbol: string) {
+    this.symbolService.removeSymbol(symbol)
   }
 }
