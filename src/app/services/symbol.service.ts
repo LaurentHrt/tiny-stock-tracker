@@ -14,7 +14,7 @@ export class SymbolService {
   }
 
   addSymbol(symbol: string) {
-    // TODO check if symbol exists
+    // TODO check if symbol exists and push the correct symbol
     this.symbolList.push(symbol)
     // TODO add in localstorage
     console.log('symbol', symbol, 'added')

@@ -7,7 +7,7 @@ import { SymbolService } from '../../../services/symbol.service'
   styleUrls: ['./stock-input.component.scss'],
 })
 export class StockInputComponent implements OnInit {
-  symbolInput!: string
+  symbolInput: string = ''
 
   constructor(private symbolService: SymbolService) {}
 
@@ -16,5 +16,13 @@ export class StockInputComponent implements OnInit {
   addSymbol() {
     console.log('add', this.symbolInput)
     this.symbolService.addSymbol(this.symbolInput)
+  }
+
+  disableButton() {
+    return (
+      this.symbolInput.length > 5 ||
+      this.symbolInput.length < 2 ||
+      /[0-9]/.test(this.symbolInput)
+    )
   }
 }
