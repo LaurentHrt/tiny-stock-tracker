@@ -13,8 +13,8 @@ import {
   providedIn: 'root',
 })
 export class StockService {
-  finnhubUrl = 'https://finnhub.io/api/v1/'
-  token = '&token=bu4f8kn48v6uehqi3cqg'
+  private finnhubUrl = 'https://finnhub.io/api/v1/'
+  private token = '&token=bu4f8kn48v6uehqi3cqg'
 
   constructor(private http: HttpClient) {}
 

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core'
 
+const enum localStorageKeys {
+  symbols = 'symbols',
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -7,7 +11,9 @@ export class SymbolService {
   private readonly symbolList: string[]
 
   constructor() {
-    this.symbolList = JSON.parse(localStorage.getItem('symbols') || '[]')
+    this.symbolList = JSON.parse(
+      localStorage.getItem(localStorageKeys.symbols) || '[]'
+    )
   }
 
   getSavedSymbols(): string[] {
@@ -31,6 +37,9 @@ export class SymbolService {
   }
 
   private saveSymbolInLocalStorage() {
-    localStorage.setItem('symbols', JSON.stringify(this.symbolList))
+    localStorage.setItem(
+      localStorageKeys.symbols,
+      JSON.stringify(this.symbolList)
+    )
   }
 }

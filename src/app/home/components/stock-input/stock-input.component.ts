@@ -13,8 +13,9 @@ export class StockInputComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  addSymbol(): void {
+  onClickAddSymbol(): void {
     this.symbolService.addSymbol(this.symbolInput.toUpperCase())
+    this.symbolInput = ''
   }
 
   disableButton(): boolean {

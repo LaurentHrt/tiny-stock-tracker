@@ -19,14 +19,15 @@
       Go to social sentiment details
     </button>
   </ng-container>
-  <ng-template #loadingOrError>
-    <div class="title-container">
-      <h2>{{ symbol }}</h2>
-      <button [id]="getButtonId('remove')" (click)="deleteSymbol()">╳</button>
-    </div>
-    <ng-container *ngIf="error; else loading">No data available</ng-container>
-  </ng-template>
 </div>
+
+<ng-template #loadingOrError>
+  <div class="title-container">
+    <h2>{{ symbol }}</h2>
+    <button [id]="getButtonId('remove')" (click)="deleteSymbol()">╳</button>
+  </div>
+  <ng-container *ngIf="error; else loading">No data available</ng-container>
+</ng-template>
 
 <ng-template #loading>
   <app-loading-image></app-loading-image>
