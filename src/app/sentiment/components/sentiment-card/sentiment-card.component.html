@@ -1,0 +1,27 @@
+<div class="sentiment-card">
+  <ng-container *ngIf="symbolData$ | async as symbolData; else loading">
+    <ng-container *ngIf="sentiments$ | async as sentiments; else loading">
+      <h2>{{ symbolData.description }} ({{ symbolData.symbol }})</h2>
+      <div
+        *ngIf="sentiments.length !== 0; else noData"
+        class="sentiments-container"
+      >
+        <div class="sentiment" *ngFor="let sentiment of sentiments">
+          <div>
+            <p>{{ sentiment.month | monthName | uppercase }}</p>
+            <p>Change: {{ sentiment.change }}</p>
+            <p>MSPR: {{ sentiment.mspr | number : '1.2-2' }}</p>
+          </div>
+          <app-variation-arrow [value]="sentiment.change"></app-variation-arrow>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <app-loading-image></app-loading-image>
+</ng-template>
+<ng-template #noData>
+  <p>No data available</p>
+</ng-template>

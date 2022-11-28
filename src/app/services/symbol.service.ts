@@ -4,27 +4,33 @@ import { Injectable } from '@angular/core'
   providedIn: 'root',
 })
 export class SymbolService {
-  private symbolList: string[] = ['TSLA', 'AAPL'] // TODO retrieve localstorage
+  private readonly symbolList: string[]
 
-  constructor() {}
+  constructor() {
+    this.symbolList = JSON.parse(localStorage.getItem('symbols') || '[]')
+  }
 
   getSavedSymbols(): string[] {
-    console.log('Getting all symbol', this.symbolList)
     return this.symbolList
   }
 
   addSymbol(symbol: string) {
-    // TODO check if symbol exists and push the correct symbol
+    if (this.symbolList.find((s) => s === symbol)) {
+      return
+    }
     this.symbolList.push(symbol)
-    // TODO add in localstorage
-    console.log('symbol', symbol, 'added')
+    this.saveSymbolInLocalStorage()
   }
 
   removeSymbol(symbol: string) {
     const index = this.symbolList.findIndex((s) => s === symbol)
     if (index > -1) {
       this.symbolList.splice(index, 1)
-      console.log('symbol', symbol, 'removed')
+      this.saveSymbolInLocalStorage()
     }
+  }
+
+  private saveSymbolInLocalStorage() {
+    localStorage.setItem('symbols', JSON.stringify(this.symbolList))
   }
 }

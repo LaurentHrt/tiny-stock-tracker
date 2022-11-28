@@ -5,29 +5,28 @@ import {
   InsiderSentimentDto,
   QuoteDto,
   SearchSymbolDto,
+  SentimentDataDto,
   SymbolDto,
 } from '../dto/Finnhub.dto'
 
 @Injectable({
   providedIn: 'root',
 })
-export class FinnhubService {
-  configUrl = 'https://finnhub.io/api/v1/'
+export class StockService {
+  finnhubUrl = 'https://finnhub.io/api/v1/'
   token = '&token=bu4f8kn48v6uehqi3cqg'
 
   constructor(private http: HttpClient) {}
 
   getSymbol(search: string): Observable<SymbolDto> {
-    console.log('getting symbols for', search)
     return this.http
-      .get<SearchSymbolDto>(this.configUrl + 'search?q=' + search + this.token)
+      .get<SearchSymbolDto>(this.finnhubUrl + 'search?q=' + search + this.token)
       .pipe(map((symbol) => symbol.result[0]))
   }
 
   getQuote(symbol: string): Observable<QuoteDto> {
-    console.log('getting quotes for', symbol)
     return this.http.get<QuoteDto>(
-      this.configUrl + 'quote?symbol=' + symbol + this.token
+      this.finnhubUrl + 'quote?symbol=' + symbol + this.token
     )
   }
 
@@ -36,16 +35,26 @@ export class FinnhubService {
     from: Date,
     to: Date
   ): Observable<InsiderSentimentDto> {
-    console.log('Getting sentiment for', symbol)
+    const formatedFrom = from.toISOString().slice(0, 10).replace(/-/g, '-')
+    const formatedTo = to.toISOString().slice(0, 10).replace(/-/g, '-')
     return this.http.get<InsiderSentimentDto>(
-      this.configUrl +
+      this.finnhubUrl +
         'stock/insider-sentiment?symbol=' +
         symbol +
         '&from=' +
-        from.toISOString().slice(0, 10).replace(/-/g, '-') +
+        formatedFrom +
         '&to=' +
-        to.toISOString().slice(0, 10).replace(/-/g, '-') +
+        formatedTo +
         this.token
+    )
+  }
+
+  getSentimentLastThreeMonths(symbol: string): Observable<SentimentDataDto[]> {
+    const to = new Date()
+    const from = new Date()
+    from.setMonth(to.getMonth() - 3)
+    return this.getSentiment(symbol, from, to).pipe(
+      map((result) => result.data.slice(-3, result.data.length))
     )
   }
 }

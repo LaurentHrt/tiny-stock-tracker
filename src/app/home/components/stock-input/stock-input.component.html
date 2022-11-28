@@ -1,7 +1,7 @@
 <div class="input-card">
   <p>Enter the symbol of a stock to track (i.e. AAPL, TSLA, GOOGL)</p>
-  <input [(ngModel)]="symbolInput" />
-  <button (click)="addSymbol()" [disabled]="disableButton()">
+  <input id="stockInput" [(ngModel)]="symbolInput" />
+  <button id="trackBtn" (click)="addSymbol()" [disabled]="disableButton()">
     Track Stock
   </button>
 </div>

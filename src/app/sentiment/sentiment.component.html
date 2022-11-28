@@ -1,21 +1,2 @@
-<div class="sentiment-card">
-  <ng-container *ngIf="symbolData$ | async as symbolData; else loading">
-    <ng-container *ngIf="insiderSentiment$ | async as sentiment; else loading">
-      <h2>{{ symbolData.description }} ({{ symbolData.symbol }})</h2>
-      <div class="sentiments-container">
-        <div class="sentiment" *ngFor="let data of sentiment.data">
-          <div>
-            <p>{{ data.month | monthName | uppercase }}</p>
-            <p>Change: {{ data.change }}</p>
-            <p>MSPR: {{ data.mspr | number : '1.2-2' }}</p>
-          </div>
-          <app-variation-arrow [value]="data.change"></app-variation-arrow>
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
-  <ng-template #loading>
-    <app-loading-image></app-loading-image>
-  </ng-template>
-</div>
-<button (click)="redirectHome()">< Back to list of stocks</button>
+<app-sentiment-card [symbol]="symbol"></app-sentiment-card>
+<button id="backBtn" (click)="redirectHome()">< Back to list of stocks</button>

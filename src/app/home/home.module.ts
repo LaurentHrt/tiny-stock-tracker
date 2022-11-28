@@ -6,10 +6,8 @@ import { StockInputComponent } from './components/stock-input/stock-input.compon
 import { StockItemComponent } from './components/stock-item/stock-item.component'
 import { HomeRoutingModule } from './home-routing.module'
 import { FormsModule } from '@angular/forms'
-import { SymbolService } from '../services/symbol.service'
-import { HttpClientModule } from '@angular/common/http'
-import { FinnhubService } from '../services/finnhub.service'
 import { SharedModule } from '../shared/shared.module'
+import { StockService } from '../services/stock.service'
 
 @NgModule({
   declarations: [
@@ -18,12 +16,7 @@ import { SharedModule } from '../shared/shared.module'
     StockItemComponent,
     HomeComponent,
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, HomeRoutingModule, FormsModule, SharedModule],
+  providers: [StockService],
 })
 export class HomeModule {}

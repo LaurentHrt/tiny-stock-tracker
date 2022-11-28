@@ -13,15 +13,14 @@ export class StockInputComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  addSymbol() {
-    console.log('add', this.symbolInput)
-    this.symbolService.addSymbol(this.symbolInput)
+  addSymbol(): void {
+    this.symbolService.addSymbol(this.symbolInput.toUpperCase())
   }
 
-  disableButton() {
+  disableButton(): boolean {
     return (
       this.symbolInput.length > 5 ||
-      this.symbolInput.length < 2 ||
+      this.symbolInput.length < 1 ||
       /[0-9]/.test(this.symbolInput)
     )
   }

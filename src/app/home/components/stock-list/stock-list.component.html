@@ -1,3 +1,5 @@
-<div>
-  <app-stock-item *ngFor="let symbol of symbolList" [symbol]="symbol" (symbolDeleted)="onSymbolDelete($event)"></app-stock-item>
-</div>
+<app-stock-item
+  *ngFor="let symbol of symbolList"
+  [symbol]="symbol"
+  (symbolDeleted)="onSymbolDelete($event)"
+></app-stock-item>

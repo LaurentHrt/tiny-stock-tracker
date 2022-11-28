@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { Observable } from 'rxjs'
-import { FinnhubService } from '../../../services/finnhub.service'
+import { catchError, Observable, throwError } from 'rxjs'
+import { StockService } from '../../../services/stock.service'
 import { QuoteDto, SymbolDto } from '../../../dto/Finnhub.dto'
 import { Router } from '@angular/router'
 
@@ -14,21 +14,35 @@ export class StockItemComponent implements OnInit {
 
   @Output() symbolDeleted = new EventEmitter<string>()
 
-  symbolData$!: Observable<SymbolDto>
   symbolQuote$!: Observable<QuoteDto>
+  displaySymbol!: string
+  description!: string
+  error: boolean = false
 
-  constructor(private finnhubService: FinnhubService, private router: Router) {}
+  constructor(private finnhubService: StockService, private router: Router) {}
 
   ngOnInit(): void {
-    this.symbolData$ = this.finnhubService.getSymbol(this.symbol)
-    this.symbolQuote$ = this.finnhubService.getQuote(this.symbol)
+    this.finnhubService.getSymbol(this.symbol).subscribe((data) => {
+      this.displaySymbol = data.symbol
+      this.description = data.description
+      this.symbolQuote$ = this.finnhubService.getQuote(data.symbol).pipe(
+        catchError((err) => {
+          this.error = true
+          return throwError(err)
+        })
+      )
+    })
   }
 
-  deleteSymbol() {
+  deleteSymbol(): void {
     this.symbolDeleted.emit(this.symbol)
   }
 
-  naviguateToSentiment() {
+  naviguateToSentiment(): void {
     this.router.navigateByUrl(`sentiment/${this.symbol}`)
+  }
+
+  getButtonId(prefix: string): string {
+    return `${prefix}${this.symbol}`
   }
 }
