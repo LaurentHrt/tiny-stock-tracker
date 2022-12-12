@@ -52,7 +52,7 @@ export class StockService {
   getSentimentLastThreeMonths(symbol: string): Observable<SentimentDataDto[]> {
     const to = new Date()
     const from = new Date()
-    from.setMonth(to.getMonth() - 3)
+    from.setMonth(to.getMonth() - 4)
     return this.getSentiment(symbol, from, to).pipe(
       map((result) => result.data.slice(-3, result.data.length))
     )
